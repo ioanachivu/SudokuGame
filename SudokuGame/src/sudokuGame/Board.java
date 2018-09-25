@@ -19,7 +19,7 @@ public class Board {
 	// display the board method
 	public void display() {
 		System.out.println("    0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 ");
-		System.out.println("-----------------------------------");
+		System.out.println("-------------------------------------");
 		for (int i = 0; i <= 8; i++) {
 			System.out.print(i + " | ");
 			for (int j = 0; j <= 2; j++) {
