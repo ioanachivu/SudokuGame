@@ -4,45 +4,50 @@ public class Cell {
 
 	private int number;
 	private boolean fixed;
-
-	public Cell() {
+	
+	public Cell () {
 		fixed = false;
 	}
 
-	public Cell(int number, boolean fixed) {
+	public Cell (int number, boolean fixed) {
 		this.number = number;
-		this.fixed = fixed;
+		this.fixed  = fixed;
 	}
 
-	public int getNumber() {
+	public int getNumber () {
 		return this.number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber (int number) {
 		this.number = number;
 	}
 
-	public boolean isEmpty() {
+	// Get whether the cell is already set (1-9)
+	public boolean isEmpty () {
 		return this.number == 0;
 	}
 
-	public boolean isFixed() {
+	// Get whether the cell is fixed or variable
+	public boolean isFixed () {
 		return this.fixed;
 	}
 
-	public void setFixed(boolean fixed) {
+	// Set the new fixed/variable status of the cell
+	public void setFixed (boolean fixed) {
 		this.fixed = fixed;
 	}
-
-	public String toString() {
+	
+	public String toString () {
 		return "" + this.number;
 	}
 
-	public boolean equals(Cell c) {
+	// Compare cell (only verifies number)
+	public boolean equals (Cell c) {
 		return this.number == c.number;
 	}
 
-	public boolean equals(int number) {
+	// Compare cell with a number
+	public boolean equals (int number) {
 		return this.number == number;
 	}
 }

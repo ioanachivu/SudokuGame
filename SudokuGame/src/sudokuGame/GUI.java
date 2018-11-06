@@ -1,22 +1,19 @@
 package sudokuGame;
 
 import javax.swing.*;
-
-import javafx.scene.control.Menu;
-
 import java.awt.*;
 import java.awt.event.*;
 
-public class SudokuGUI extends JFrame {
+public class GUI extends JFrame {
 
 	private Grid grid;
 	private JButton solve, check, generate;
 	private JCheckBoxMenuItem itemEasy, itemMedium, itemHard;
 	private int level;
 
-	public SudokuGUI() {
+	public GUI() {
 		setLevel(1);
-		initWindow();
+		initializeWindow();
 	}
 
 	// Set level of difficulty
@@ -30,22 +27,17 @@ public class SudokuGUI extends JFrame {
 			itemHard.setSelected(this.level == 3);
 	}
 
-	// Initialize window
-	public void initWindow() {
-		setTitle("Good Luck!");
-		setSize(400, 400);
+	public void initializeWindow() {
+		setTitle("Sudoku");
+		setSize(450, 500);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
 		drawMenu();
 		drawPanel();
 		setVisible(true);
 	}
 
-	// Draw menu
 	public void drawMenu() {
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBackground(Color.gray);
-		
 		JMenu menuMenu = new JMenu("Menu");
 		menuMenu.setMnemonic(KeyEvent.VK_M);
 		JMenuItem itemNew = new JMenuItem("New");
@@ -116,11 +108,9 @@ public class SudokuGUI extends JFrame {
 		this.setJMenuBar(menuBar);
 	}
 
-	// Draw panel
 	public void drawPanel() {
 		setLayout(new BorderLayout(0, 40));
-		
-		
+
 		this.grid = new Grid(this.level);
 		add(this.grid, BorderLayout.CENTER);
 
@@ -153,27 +143,25 @@ public class SudokuGUI extends JFrame {
 		add(buttons, BorderLayout.SOUTH);
 	}
 
-	// Solve board.
 	private void solveBoard() {
 		this.grid.getSudoku().solveBoard();
 		this.grid.refreshGrid();
 	}
-
-	// Check board
+	
 	private void checkBoard() {
 		if (this.grid.getSudoku().isSolved()) {
-			JOptionPane.showMessageDialog(null, "Congratulations!");
+			JOptionPane.showMessageDialog(null, "All correct! Congratulations!");
 		} else {
 			this.grid.highlightCells(this.grid.getSudoku().checkBoard());
 		}
 	}
 
-	// Generate board
+
 	private void generateBoard() {
 		this.grid.setSudoku(new Game(this.level));
 	}
 
 	public static void main(String[] args) {
-		new SudokuGUI();
+		new GUI();
 	}
 }

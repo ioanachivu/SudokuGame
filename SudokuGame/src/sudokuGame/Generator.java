@@ -5,32 +5,28 @@ import java.util.Random;
 public class Generator {
 
 	private Board board = new Board();
-	private Board backupBoard = new Board(); // a board to backtrack, if something goes wrong
+	private Board backupBoard = new Board(); // srcBoard is a board to backtrack to if something goes wrong
 
-	public Generator() {
-	}
-
-	// Get the board
 	public Board getBoard() {
 		return this.board;
 	}
-	
-	// Get random number(0-8)
+
+	// Get random number from (0-8)
 	private int random() {
 		Random rand = new Random();
 		return rand.nextInt(9);
 	}
 
-	// Check if board is solvable
+	// Check if the board is solvable
 	private boolean solvable() {
-		Solution solution = new Solution(board, true);
-		return solution.solve();
+		Solution solver = new Solution(board, true);
+		return solver.solveBoard();
 	}
 	
-	// Initializing board, fill randomly with numbers,solves it to create a puzzle
-	private void initalizeBoard() {
+	// Initialize board: fills the board up randomly with numbers, then attempts to solve it to create
+	// a finished puzzle
+	private void initBoard() {
 		int i, j, n;
-
 		do {
 			board.clear();
 			for (int k = 0; k < 80; k++) {
@@ -43,14 +39,13 @@ public class Generator {
 				}
 			}
 		} while (!solvable());
-
 		backupBoard.copy(board);
 	}
 	
 	// Clear n randomly placed cells
 		private void hideCells(int n) {
-			int i, j, k, hide = 0;
-			while (hide < n) {
+			int i, j, k, dug = 0;
+			while (dug < n) {
 				i = random();
 				j = random();
 				if (board.getCell(i, j) == null || !board.getCell(i, j).equals(0)) {
@@ -60,18 +55,18 @@ public class Generator {
 						k = board.getCell(i, j).getNumber();
 					}
 					board.setCell(i, j, 0, false);
-					if (!multipleSolutions()) {
-						hide++;
+					if (!multSol()) {
+						dug++;
 					} else {
 						board.setCell(i, j, k, true);
 					}
 				}
 			}
 		}
-
+	
 	// Generate a new solvable board, diff - difficulty level (1-3)
 	public void generateBoard(int diff) {
-		initalizeBoard();
+		initBoard();
 		Random random = new Random();
 		if (diff == 1) {
 			hideCells(30 + random.nextInt(10));
@@ -82,10 +77,8 @@ public class Generator {
 		}
 	}
 
-	
-
 	// Check for multiple solutions by brute force
-	private boolean multipleSolutions() {
+	private boolean multSol() {
 		int n = 0;
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {

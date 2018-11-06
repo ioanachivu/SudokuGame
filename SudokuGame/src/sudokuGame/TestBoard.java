@@ -9,15 +9,7 @@ public class TestBoard extends TestCase {
 		super();
 	}
 	
-	/**
-	* Test method Board.setCell <p>
-	* 
-	* Expected to set cell to given value. <p>
-	* 
-	* @author 
-	* Created by: Hans-Peter Hoellwirth <br>
-	* Edited by:  -
-	*/
+	// Test method Board.setCell
 	public void testSetCell () {
 		Game sudoku = new Game(1);
 		sudoku.getBoard().setCell(0, 0, 7, false);
@@ -25,15 +17,7 @@ public class TestBoard extends TestCase {
 		assertEquals(sudoku.getBoard().getCell(0,0).isFixed(), false);
 	}	
 	
-	/**
-	* Test method Board.contains <p>
-	* 
-	* Expected to return true if duplicate numbers are found in row, column or block. <p>
-	* 
-	* @author 
-	* Created by: Hans-Peter Hoellwirth <br>
-	* Edited by:  -
-	*/
+	// Test method Board.contains 
 	public void testCopy () {
 		Game sudoku1 = new Game(1);
 		Game sudoku2 = new Game(1);
@@ -41,15 +25,7 @@ public class TestBoard extends TestCase {
 		assertTrue(sudoku2.getBoard().equals(sudoku1.getBoard()));
 	}	
 	
-	/**
-	* Test method Board.copy <p>
-	* 
-	* Expected to copy all values of the board. <p>
-	* 
-	* @author 
-	* Created by: Hans-Peter Hoellwirth <br>
-	* Edited by:  -
-	*/
+	// Test method Board.copy
 	public void testContains () {
 		Game sudoku = new Game(1);
 		sudoku.getBoard().setCell(0, 0, 7, false);
@@ -58,29 +34,13 @@ public class TestBoard extends TestCase {
 		assertTrue(sudoku.getBoard().contains(1, 1, 7));
 	}	
 
-	/**
-	* Test method Board.equals <p>
-	* 
-	* Expected to return true if all cell numbers are equal. <p>
-	* 
-	* @author 
-	* Created by: Hans-Peter Hoellwirth <br>
-	* Edited by:  -
-	*/	
+	// Test method Board.equals
 	public void testEquals () {
 		Game sudoku = new Game(1);
 		assertTrue(sudoku.getBoard().equals(sudoku.getBoard()));
 	}
 
-	/**
-	* Test method Board.clear <p>
-	* 
-	* Expected to set all cell numbers to 0. <p>
-	* 
-	* @author 
-	* Created by: Hans-Peter Hoellwirth <br>
-	* Edited by:  -
-	*/	
+	// Test method Board.clear,set all user cell numbers to 0
 	public void testClear () {
 		Board board = new Board();
 		for (int i=0; i<9; i++) {
@@ -93,15 +53,7 @@ public class TestBoard extends TestCase {
 		assertTrue(board.equals(sudoku.getBoard()));
 	}
 
-	/**
-	* Test method Board.reset <p>
-	* 
-	* Expected to set all user cell numbers to 0. <p>
-	* 
-	* @author 
-	* Created by: Hans-Peter Hoellwirth <br>
-	* Edited by:  -
-	*/
+	// Test method Board.reset, set all user cell numbers to 0
 	public void testReset () {
 		Game sudoku = new Game(1);
 		Board initial = sudoku.getBoard();
@@ -110,24 +62,16 @@ public class TestBoard extends TestCase {
 		assertTrue(initial.equals(sudoku.getBoard()));
 	}
 	
-	/**
-	* Test row/column/block sums of solved board. <p>
-	* 
-	* Each row, column and block sum is expected to be 45. <p>
-	* 
-	* @author 
-	* Created by: Claire Giry <br>
-	* Edited by:  Hans-Peter Hoellwirth
-	*/
+	// Test row/column/block sums of solved board, sum is expected to be 45
 	public void testSubTotals () {
 		Game sudoku = new Game(1);
 		sudoku.solveBoard();
 		
 		for(int i = 0; i < 9; i++) {
 			assertEquals (sum(sudoku.getBoard().getRow(i)), 45);
-			assertEquals (sum(sudoku.getBoard().getColumn(i)), 45);
+			assertEquals (sum(sudoku.getBoard().getCol(i)), 45);
 			for(int j = 0; j < 3; j++) {
-				assertEquals (sum(sudoku.getBoard().getSquare(i, j*3)), 45);
+				assertEquals (sum(sudoku.getBoard().getBlock(i, j*3)), 45);
 			}
 		}
 	}	
